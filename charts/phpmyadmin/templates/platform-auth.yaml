@@ -1,0 +1,17 @@
+{{ $data := dict }}
+
+{{- with .Values.authzproxy.params.platformCABundle }}
+{{ $_ := set $data "ca.crt" . }}
+{{- end }}
+
+{{- if $data }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "phpmyadmin.fullname" . }}-platform-auth
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "phpmyadmin.labels" . | nindent 4 }}
+type: Opaque
+stringData: {{ $data | toJson }}
+{{- end }}

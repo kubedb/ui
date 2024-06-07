@@ -34,9 +34,11 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if not .Values.authzproxy.enabled }}
           env:
             - name: MONGO_URL
               value: {{ .Values.app.url }}
+          {{- end }}
           ports:
             - name: http
               containerPort: 4321

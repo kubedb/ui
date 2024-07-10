@@ -1,16 +1,8 @@
 [![Twitter](https://img.shields.io/twitter/follow/kubedb.svg?style=social&logo=twitter&label=Follow)](https://twitter.com/intent/follow?screen_name=kubedb)
 
-# KubeDB installer
+# KubeDB UI Charts
 
-KubeDB Helm chart and deployment scripts
-
-## Installation
-
-To install KubeDB, please follow the guide [here](https://kubedb.com/docs/latest/setup/).
-
-## Using KubeDB
-
-Want to learn how to use KubeDB? Please start [here](https://kubedb.com/docs/latest/guides/).
+KubeDB UI Helm charts
 
 ## Contribution guidelines
 

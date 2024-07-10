@@ -16,12 +16,12 @@ SHELL=/bin/bash -o pipefail
 
 GO_PKG   := kubedb.dev
 REPO     := $(notdir $(shell pwd))
-BIN      := installer
+BIN      := ui
 
 CRD_OPTIONS          ?= "crd:crdVersions={v1}"
 # https://github.com/appscodelabs/gengo-builder
 CODE_GENERATOR_IMAGE ?= ghcr.io/appscode/gengo:release-1.29
-API_GROUPS           ?= installer:v1alpha1
+API_GROUPS           ?= ui:v1alpha1
 
 # This version-strategy uses git tags to set the version string
 git_branch       := $(shell git rev-parse --abbrev-ref HEAD)
@@ -47,7 +47,7 @@ endif
 ### These variables should not need tweaking.
 ###
 
-SRC_PKGS := apis catalog cmd tests # directories which hold app source (not vendored)
+SRC_PKGS := apis # directories which hold app source (not vendored)
 SRC_DIRS := $(SRC_PKGS)
 
 DOCKER_PLATFORMS := linux/amd64 linux/arm linux/arm64
@@ -211,7 +211,7 @@ gen-values-schema: $(BUILD_DIRS)
 	@for dir in charts/*/; do \
 		dir=$${dir%*/}; \
 		dir=$${dir##*/}; \
-		crd_file=.crds/installer.kubedb.com_$$(echo $$dir | tr -d '-')s.yaml; \
+		crd_file=.crds/ui.kubedb.com_$$(echo $$dir | tr -d '-')s.yaml; \
 		if [ ! -f $${crd_file} ]; then \
 			continue; \
 		fi; \
@@ -277,8 +277,6 @@ fmt: $(BUILD_DIRS)
 	    $(BUILD_IMAGE)                                          \
 	    /bin/bash -c "                                          \
 	        set -eou pipefail;                                  \
-	        go run ./catalog/kubedb/fmt/main.go;                \
-	        go run ./catalog/kubestash/fmt/main.go;             \
 	        REPO_PKG=$(GO_PKG)                                  \
 	        ./hack/fmt.sh $(SRC_DIRS)                           \
 	    "

@@ -28,7 +28,7 @@ podAnnotations: {}
 podSecurityContext: {}
   # fsGroup: 2000
 
-# securityContext: # +doc-gen:break
+securityContext: {}
 #   allowPrivilegeEscalation: false
 #   capabilities:
 #     drop: ["ALL"]

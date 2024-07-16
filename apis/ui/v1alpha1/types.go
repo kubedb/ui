@@ -16,24 +16,12 @@ limitations under the License.
 
 package v1alpha1
 
-import (
-	core "k8s.io/api/core/v1"
-)
+import core "k8s.io/api/core/v1"
 
 type ImageRef struct {
-	Registry   string `json:"registry"`
 	Repository string `json:"repository"`
+	PullPolicy string `json:"pullPolicy"`
 	Tag        string `json:"tag"`
-}
-
-type Container struct {
-	ImageRef `json:",inline"`
-	// Compute Resources required by the sidecar container.
-	// +optional
-	Resources core.ResourceRequirements `json:"resources"`
-	// Security options the pod should run with.
-	// +optional
-	SecurityContext *core.SecurityContext `json:"securityContext"`
 }
 
 type ServiceAccountSpec struct {
@@ -44,58 +32,67 @@ type ServiceAccountSpec struct {
 	Annotations map[string]string `json:"annotations"`
 }
 
-type WebHookSpec struct {
-	UseKubeapiserverFqdnForAks bool            `json:"useKubeapiserverFqdnForAks"`
-	Healthcheck                HealthcheckSpec `json:"healthcheck"`
+type ServiceSpec struct {
+	Type string `json:"type"`
+	Port int    `json:"port"`
 }
 
-type ServingCerts struct {
-	Generate bool `json:"generate"`
-	// +optional
-	CaCrt string `json:"caCrt"`
-	// +optional
-	ServerCrt string `json:"serverCrt"`
-	// +optional
-	ServerKey string `json:"serverKey"`
+type CreateFlag struct {
+	Create bool `json:"create"`
 }
 
-type HealthcheckSpec struct {
-	// +optional
-	Enabled   bool `json:"enabled"`
-	ProbePort int  `json:"probePort"`
+type ObjectRef struct {
+	Name      string `json:"name"`
+	Namespace string `json:"namespace"`
 }
 
-// +kubebuilder:validation:Enum=prometheus.io;prometheus.io/operator;prometheus.io/builtin
-type MonitoringAgent string
-
-type Monitoring struct {
-	Agent          MonitoringAgent       `json:"agent"`
-	BindPort       int                   `json:"bindPort"`
-	ServiceMonitor *ServiceMonitorLabels `json:"serviceMonitor"`
+type LocalObjectRef struct {
+	Name string `json:"name"`
 }
 
-type ServiceMonitorLabels struct {
-	// +optional
-	Labels map[string]string `json:"labels"`
+type GatewaySpec struct {
+	ClassName      string     `json:"className"`
+	Port           int        `json:"port"`
+	TlsSecretRef   ObjectRef  `json:"tlsSecretRef"`
+	ReferenceGrant CreateFlag `json:"referenceGrant"`
 }
 
-type EASSpec struct {
-	GroupPriorityMinimum       int32              `json:"groupPriorityMinimum"`
-	VersionPriority            int32              `json:"versionPriority"`
-	UseKubeapiserverFqdnForAks bool               `json:"useKubeapiserverFqdnForAks"`
-	Healthcheck                EASHealthcheckSpec `json:"healthcheck"`
-	ServingCerts               ServingCerts       `json:"servingCerts"`
+type KedaSpec struct {
+	ProxyService ProxyServiceSpec `json:"proxyService"`
 }
 
-type EASHealthcheckSpec struct {
-	// +optional
-	Enabled bool `json:"enabled"`
+type ProxyServiceSpec struct {
+	Namespace string `json:"namespace"`
+	Name      string `json:"name"`
+	Port      int    `json:"port"`
 }
 
-type EASMonitoring struct {
-	Agent          MonitoringAgent      `json:"agent"`
-	ServiceMonitor ServiceMonitorLabels `json:"serviceMonitor"`
+type Autoscaling struct {
+	Http ReplicaRange `json:"http"`
 }
-type PSPSpec struct {
-	Enabled bool `json:"enabled"`
+
+type ReplicaRange struct {
+	MinReplicas int `json:"minReplicas"`
+	MaxReplicas int `json:"maxReplicas"`
+}
+
+type AppRef struct {
+	Service    ObjectRef      `json:"service"`
+	AuthSecret LocalObjectRef `json:"authSecret"`
+}
+
+type AuthzproxySpec struct {
+	Enabled         bool                      `json:"enabled"`
+	Repository      string                    `json:"repository"`
+	Tag             string                    `json:"tag"`
+	SecurityContext *core.SecurityContext     `json:"securityContext"`
+	Resources       core.ResourceRequirements `json:"resources"`
+	Params          AuthzproxyParams          `json:"params"`
+}
+
+type AuthzproxyParams struct {
+	Listen           int    `json:"listen"`
+	MetricsAddr      int    `json:"metricsAddr"`
+	PlatformURL      string `json:"platformURL"`
+	PlatformCABundle string `json:"platformCABundle"`
 }

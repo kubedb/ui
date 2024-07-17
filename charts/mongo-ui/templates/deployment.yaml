@@ -38,6 +38,16 @@ spec:
           env:
             - name: MONGO_URL
               value: {{ .Values.app.url }}
+            - name: MONGOGUI_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.app.authSecret.name }}
+                  key: username
+            - name: MONGOGUI_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.app.authSecret.name }}
+                  key: password
           {{- end }}
           ports:
             - name: http

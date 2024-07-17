@@ -104,6 +104,8 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.app.authSecret.name }}
                   key: password
+            - name: PASSWORD_MODE_PRIMARY
+              value: askUser
           {{- end }}
           ports:
             - name: http

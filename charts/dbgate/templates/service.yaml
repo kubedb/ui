@@ -9,7 +9,7 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: {{- if .Values.authzproxy.enabled }}"proxy"{{ else }}"http"{{ end }}
+      targetPort: {{ ternary "proxy" "http" .Values.authzproxy.enabled }}
       protocol: TCP
       name: http
   selector:

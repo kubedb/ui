@@ -67,3 +67,15 @@ Fake keda hostname
 {{- define "keda.hostname" -}}
 {{- printf "pgadmin.%s.%s.%s.%s.kubedb.test" .Values.bind.name .Values.bind.namespace .Values.app.service.name .Values.app.service.namespace | quote }}
 {{- end }}
+
+{{- define "image.dockerHub" -}}
+{{ list .Values.proxies.dockerHub ._repo | compact | join "/" }}
+{{- end }}
+
+{{- define "image.dockerLibrary" -}}
+{{ prepend (list ._repo) (list .Values.proxies.dockerLibrary .Values.proxies.dockerHub | compact | first) | compact | join "/" }}
+{{- end }}
+
+{{- define "image.ghcr" -}}
+{{ list .Values.proxies.ghcr ._repo | compact | join "/" }}
+{{- end }}

@@ -1472,6 +1472,27 @@ properties:
             type: string
         type: object
     type: object
+  proxies:
+    properties:
+      appscode:
+        description: r.appscode.com
+        type: string
+      dockerHub:
+        description: company/bin:1.23
+        type: string
+      dockerLibrary:
+        description: alpine, nginx etc.
+        type: string
+      ghcr:
+        description: ghcr.io
+        type: string
+      kubernetes:
+        description: registry.k8s.io
+        type: string
+      microsoft:
+        description: mcr.microsoft.com
+        type: string
+    type: object
   replicaCount:
     type: integer
   resources:
@@ -1762,6 +1783,7 @@ required:
 - nodeSelector
 - podAnnotations
 - podSecurityContext
+- proxies
 - replicaCount
 - resources
 - securityContext

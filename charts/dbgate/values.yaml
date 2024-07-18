@@ -2,6 +2,14 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+proxies:
+  dockerHub: ""
+  dockerLibrary: ""
+  ghcr: ghcr.io
+  kubernetes: registry.k8s.io
+  microsoft: mcr.microsoft.com
+  appscode: r.appscode.com
+
 replicaCount: 1
 
 image:
@@ -126,7 +134,7 @@ bind:
 authzproxy:
   enabled: false
   # KubeDB operator container image
-  repository: ghcr.io/appscode/kube-authz-proxy
+  repository: appscode/kube-authz-proxy
   # KubeDB operator container image tag
   tag: "v0.0.1"
   # Security options this container should run with

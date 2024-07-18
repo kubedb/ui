@@ -41,7 +41,7 @@ spec:
             - --metrics-addr={{ .Values.authzproxy.params.metricsAddr }}
             - --secret-name={{ .Values.app.authSecret.name }}
             - --secret-namespace={{ .Release.Namespace }}
-            - --target-url=http://localhost:3000
+            - --target-url=http://localhost:80
             - --platform-url={{ .Values.authzproxy.params.platformURL }}
             {{- if .Values.authzproxy.params.platformCABundle }}
             - --platform-ca-file=/var/platform-auth/ca.crt

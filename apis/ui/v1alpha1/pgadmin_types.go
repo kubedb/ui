@@ -42,6 +42,7 @@ type Pgadmin struct {
 }
 
 type PgadminSpec struct {
+	Proxies               RegistryProxies           `json:"proxies"`
 	ReplicaCount          int                       `json:"replicaCount"`
 	Image                 ImageRef                  `json:"image"`
 	ImagePullSecrets      []string                  `json:"imagePullSecrets"`

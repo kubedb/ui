@@ -22,7 +22,7 @@ image:
   repository: "dpage/pgadmin4"
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: ""
 
 imagePullSecrets: []
 nameOverride: ""
@@ -42,15 +42,16 @@ podAnnotations: {}
 podSecurityContext: {}
   # fsGroup: 2000
 
-securityContext: {}
-  # allowPrivilegeEscalation: false
+securityContext: # +doc-gen:break
+  allowPrivilegeEscalation: false
   # capabilities:
   #   drop: ["ALL"]
   # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 65534
-  # seccompProfile:
-  #   type: RuntimeDefault
+  runAsNonRoot: true
+  runAsUser: 5050
+  runAsGroup: 5050
+  seccompProfile:
+    type: RuntimeDefault
 
 service:
   type: ClusterIP

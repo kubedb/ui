@@ -22,7 +22,7 @@ image:
   repository: "dbgate/dbgate"
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "alpine"
+  tag: "5.3.1-alpine"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -42,15 +42,15 @@ podAnnotations: {}
 podSecurityContext: {}
   # fsGroup: 2000
 
-securityContext: {}
-#   allowPrivilegeEscalation: false
-#   capabilities:
-#     drop: ["ALL"]
-#   readOnlyRootFilesystem: true
-#   runAsNonRoot: true
-#   runAsUser: 65534
-#   # seccompProfile:
-#   #   type: RuntimeDefault
+securityContext: # +doc-gen:break
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop: ["ALL"]
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 65534
+  seccompProfile:
+    type: RuntimeDefault
 
 service:
   type: ClusterIP

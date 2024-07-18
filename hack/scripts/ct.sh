@@ -23,12 +23,12 @@ for dir in charts/*/; do
     echo $dir
     if [ $num_files -le 1 ]; then
         make ct CT_COMMAND=lint TEST_CHARTS=charts/$dir
-    elif [[ "$dir" = "dbgate" ]] ||
-        [[ "$dir" = "kafka-ui" ]] ||
-        [[ "$dir" = "mongo-ui" ]] ||
-        [[ "$dir" = "pgadmin" ]] ||
-        [[ "$dir" = "phpmyadmin" ]]; then
-        make ct TEST_CHARTS=charts/$dir || true
+    # elif [[ "$dir" = "dbgate" ]] ||
+    #     [[ "$dir" = "kafka-ui" ]] ||
+    #     [[ "$dir" = "mongo-ui" ]] ||
+    #     [[ "$dir" = "pgadmin" ]] ||
+    #     [[ "$dir" = "phpmyadmin" ]]; then
+    #     make ct TEST_CHARTS=charts/$dir || true
     else
         ns=app-$(date +%s | head -c 6)
         kubectl create ns $ns

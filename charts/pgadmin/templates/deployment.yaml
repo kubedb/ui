@@ -89,9 +89,16 @@ spec:
               value: "False"
             - name: PGADMIN_CONFIG_WTF_CSRF_ENABLED
               value: "False"
+            # avoid need for sudo
+            # https://github.com/pgadmin-org/pgadmin4/blob/REL-8_9/pkg/docker/entrypoint.sh#L94
+            # postfix is used to send password reset emails. This feature is not used.
+            - name: PGADMIN_DISABLE_POSTFIX
+              value: "True"
+            - name: PGADMIN_LISTEN_PORT
+              value: "8080"
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
               protocol: TCP
           # livenessProbe:
           #   httpGet:
@@ -113,13 +120,17 @@ spec:
               mountPath: /pgadmin4/config_local.py
               subPath: config_local.py
               readOnly: true
-            - name: data
+            - name: datadir
               mountPath: /var/lib/pgadmin
+            - name: logdir
+              mountPath: /var/log/pgadmin
       volumes:
         - name: config
           secret:
             secretName: {{ include "pgadmin.serviceAccountName" . }}-config
-        - name: data
+        - name: datadir
+          emptyDir: {}
+        - name: logdir
           emptyDir: {}
       {{- if .Values.authzproxy.params.platformCABundle }}
         - name: platform-auth

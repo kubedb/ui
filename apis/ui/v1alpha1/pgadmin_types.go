@@ -19,6 +19,7 @@ package v1alpha1
 import (
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"kmodules.xyz/resource-metadata/apis/shared"
 )
 
 const (
@@ -42,7 +43,8 @@ type Pgadmin struct {
 }
 
 type PgadminSpec struct {
-	Proxies               RegistryProxies           `json:"proxies"`
+	//+optional
+	Proxies               shared.RegistryProxies    `json:"proxies"`
 	ReplicaCount          int                       `json:"replicaCount"`
 	Image                 ImageRef                  `json:"image"`
 	ImagePullSecrets      []string                  `json:"imagePullSecrets"`

@@ -3,12 +3,18 @@
 # Declare variables to be passed into your templates.
 
 proxies:
-  dockerHub: ""
-  dockerLibrary: ""
-  ghcr: ghcr.io
-  kubernetes: registry.k8s.io
-  microsoft: mcr.microsoft.com
+  # r.appscode.com
   appscode: r.appscode.com
+  # company/bin:tag
+  dockerHub: ""
+  # alpine, nginx etc.
+  dockerLibrary: ""
+  # ghcr.io/company/bin:tag
+  ghcr: ghcr.io
+  # quay.io/company/bin:tag
+  quay: quay.io
+  # registry.k8s.io/bin:tag
+  kubernetes: registry.k8s.io
 
 replicaCount: 1
 

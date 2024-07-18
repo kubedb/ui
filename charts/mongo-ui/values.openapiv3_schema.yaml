@@ -1489,8 +1489,8 @@ properties:
       kubernetes:
         description: registry.k8s.io
         type: string
-      microsoft:
-        description: mcr.microsoft.com
+      quay:
+        description: quay.io
         type: string
     type: object
   replicaCount:
@@ -1793,7 +1793,6 @@ required:
 - nodeSelector
 - podAnnotations
 - podSecurityContext
-- proxies
 - replicaCount
 - resources
 - securityContext

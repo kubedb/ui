@@ -19,7 +19,7 @@ proxies:
 replicaCount: 1
 
 image:
-  repository: "phpmyadmin"
+  repository: "appscode-images/phpmyadmin"
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""

@@ -108,6 +108,10 @@ spec:
             - name: PASSWORD_MODE_PRIMARY
               value: askPassword
           {{- end }}
+          {{- if .Values.app.tls.enabled }}
+            - name: USE_SSL_PRIMARY
+              value: "1"
+          {{- end }}
           ports:
             - name: http
               containerPort: 3000

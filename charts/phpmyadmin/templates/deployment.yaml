@@ -84,6 +84,10 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.app.authSecret.name }}
                   key: password
+          {{- if .Values.app.tls.enabled }}
+            - name: PMA_SSL
+              value: "1"
+          {{- end }}
           ports:
             - name: http
               containerPort: 8080

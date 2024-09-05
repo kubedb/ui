@@ -79,6 +79,7 @@ type ReplicaRange struct {
 type AppRef struct {
 	Service    ObjectRef      `json:"service"`
 	AuthSecret LocalObjectRef `json:"authSecret"`
+	TLS        TLS            `json:"tls"`
 }
 
 type AuthzproxySpec struct {
@@ -95,4 +96,8 @@ type AuthzproxyParams struct {
 	MetricsAddr      int    `json:"metricsAddr"`
 	PlatformURL      string `json:"platformURL"`
 	PlatformCABundle string `json:"platformCABundle"`
+}
+
+type TLS struct {
+	Enabled bool `json:"enabled"`
 }

@@ -133,6 +133,8 @@ app:
     namespace: ""
   authSecret:
     name: ""
+  tls:
+    enabled: false
 bind:
   name: ""
   namespace: ""
@@ -148,9 +150,9 @@ authzproxy:
     allowPrivilegeEscalation: false
     capabilities:
       drop: ["ALL"]
-    readOnlyRootFilesystem: true
+    readOnlyRootFilesystem: false
     runAsNonRoot: true
-    runAsUser: 65534
+    runAsUser: 1000
     seccompProfile:
       type: RuntimeDefault
   # Compute Resources required by this container

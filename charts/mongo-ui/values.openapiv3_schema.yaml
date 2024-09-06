@@ -937,11 +937,19 @@ properties:
         - name
         - namespace
         type: object
+      tls:
+        properties:
+          enabled:
+            type: boolean
+        required:
+        - enabled
+        type: object
       url:
         type: string
     required:
     - authSecret
     - service
+    - tls
     - url
     type: object
   authzproxy:

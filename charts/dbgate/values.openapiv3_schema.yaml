@@ -939,10 +939,18 @@ properties:
         - name
         - namespace
         type: object
+      tls:
+        properties:
+          enabled:
+            type: boolean
+        required:
+        - enabled
+        type: object
     required:
     - authSecret
     - kind
     - service
+    - tls
     type: object
   authzproxy:
     properties:

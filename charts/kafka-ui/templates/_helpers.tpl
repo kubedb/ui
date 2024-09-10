@@ -86,7 +86,7 @@ This allows us to check if the registry of the image is specified or not.
 Fake keda hostname
 */}}
 {{- define "keda.hostname" -}}
-{{- printf "pgadmin.%s.%s.%s.%s.kubedb.test" .Values.bind.name .Values.bind.namespace .Values.app.service.name .Values.app.service.namespace | quote }}
+{{- list .Chart.Name .Values.bind.name .Values.bind.namespace .Values.app.service.name .Values.app.service.namespace "kubedb.internal" | compact | join "." | quote }}
 {{- end }}
 
 {{- define "image.dockerHub" -}}

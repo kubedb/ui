@@ -65,17 +65,16 @@ type MongoUiSpec struct {
 	TargetPendingRequests int                       `json:"targetPendingRequests"`
 	Autoscaling           Autoscaling               `json:"autoscaling"`
 	App                   MongoRef                  `json:"app"`
-	TLS                   MongoUiTLS                `json:"tls"`
 	Bind                  ObjectRef                 `json:"bind"`
-	Authzproxy            AuthzproxySpec            `json:"authzproxy"`
 }
 
 type MongoRef struct {
 	AppRef `json:",inline"`
-	Url    string `json:"url"`
+	Url    string         `json:"url"`
+	TLS    MongoClientTLS `json:"tls"`
 }
 
-type MongoUiTLS struct {
+type MongoClientTLS struct {
 	Enabled    bool   `json:"enabled"`
 	SecretName string `json:"secretName"`
 }

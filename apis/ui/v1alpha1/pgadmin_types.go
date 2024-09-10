@@ -66,7 +66,6 @@ type PgadminSpec struct {
 	Autoscaling           Autoscaling               `json:"autoscaling"`
 	App                   AppRef                    `json:"app"`
 	Bind                  ObjectRef                 `json:"bind"`
-	Authzproxy            AuthzproxySpec            `json:"authzproxy"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

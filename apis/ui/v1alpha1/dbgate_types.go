@@ -66,12 +66,11 @@ type DbgateSpec struct {
 	Autoscaling           Autoscaling               `json:"autoscaling"`
 	App                   DBRef                     `json:"app"`
 	Bind                  ObjectRef                 `json:"bind"`
-	Authzproxy            AuthzproxySpec            `json:"authzproxy"`
 }
 
 type DBRef struct {
-	AppRef `json:",inline"`
-	Kind   string `json:"kind"`
+	SecureAppRef `json:",inline"`
+	Kind         string `json:"kind"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

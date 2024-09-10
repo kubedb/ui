@@ -29,46 +29,6 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        {{- if .Values.authzproxy.enabled }}
-        - name: authz-proxy
-          securityContext:
-            {{- toYaml .Values.authzproxy.securityContext | nindent 12 }}
-          image: '{{ include "image.ghcr" (merge (dict "_repo" $.Values.authzproxy.repository) $) }}:{{ .Values.authzproxy.tag | default .Chart.AppVersion }}'
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          args:
-            - run
-            - --listen={{ .Values.authzproxy.params.listen }}
-            - --metrics-addr={{ .Values.authzproxy.params.metricsAddr }}
-            - --secret-name={{ .Values.app.authSecret.name }}
-            - --secret-namespace={{ .Release.Namespace }}
-            - --target-url=http://localhost:4321
-            - --platform-url={{ .Values.authzproxy.params.platformURL }}
-            {{- if .Values.authzproxy.params.platformCABundle }}
-            - --platform-ca-file=/var/platform-auth/ca.crt
-            {{- end }}
-          ports:
-            - name: proxy
-              containerPort: {{ .Values.authzproxy.params.listen }}
-              protocol: TCP
-            - name: metrics
-              containerPort: {{ .Values.authzproxy.params.metricsAddr }}
-              protocol: TCP
-          # livenessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: http
-          # readinessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: http
-          resources:
-            {{- toYaml .Values.authzproxy.resources | nindent 12 }}
-          {{- if .Values.authzproxy.params.platformCABundle }}
-          volumeMounts:
-            - mountPath: /var/platform-auth
-              name: platform-auth
-          {{- end }}
-        {{ end }}
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -77,18 +37,6 @@ spec:
           env:
             - name: MONGO_URL
               value: {{ .Values.app.url }}
-          {{- if not .Values.authzproxy.enabled }}
-            - name: MONGOGUI_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.app.authSecret.name }}
-                  key: username
-            - name: MONGOGUI_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.app.authSecret.name }}
-                  key: password
-          {{- end }}
           ports:
             - name: http
               containerPort: 4321
@@ -103,16 +51,16 @@ spec:
           #     port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- if .Values.tls.enabled }}
+          {{- if .Values.app.tls.enabled }}
           volumeMounts:
           - name:  tls
             mountPath:  /tmp
           {{- end }}
-      {{- if .Values.tls.enabled }}
+      {{- if .Values.app.tls.enabled }}
       volumes:
         - name:  tls
           secret:
-            secretName: {{ .Values.tls.secretName }}
+            secretName: {{ .Values.app.tls.secretName }}
       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:

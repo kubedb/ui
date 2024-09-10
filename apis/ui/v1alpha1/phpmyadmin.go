@@ -64,9 +64,8 @@ type PhpmyadminSpec struct {
 	Keda                  KedaSpec                  `json:"keda"`
 	TargetPendingRequests int                       `json:"targetPendingRequests"`
 	Autoscaling           Autoscaling               `json:"autoscaling"`
-	App                   AppRef                    `json:"app"`
+	App                   SecureAppRef              `json:"app"`
 	Bind                  ObjectRef                 `json:"bind"`
-	Authzproxy            AuthzproxySpec            `json:"authzproxy"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -16,8 +16,6 @@ limitations under the License.
 
 package v1alpha1
 
-import core "k8s.io/api/core/v1"
-
 type ImageRef struct {
 	Repository string `json:"repository"`
 	PullPolicy string `json:"pullPolicy"`
@@ -79,23 +77,12 @@ type ReplicaRange struct {
 type AppRef struct {
 	Service    ObjectRef      `json:"service"`
 	AuthSecret LocalObjectRef `json:"authSecret"`
+}
+
+type SecureAppRef struct {
+	Service    ObjectRef      `json:"service"`
+	AuthSecret LocalObjectRef `json:"authSecret"`
 	TLS        TLS            `json:"tls"`
-}
-
-type AuthzproxySpec struct {
-	Enabled         bool                      `json:"enabled"`
-	Repository      string                    `json:"repository"`
-	Tag             string                    `json:"tag"`
-	SecurityContext *core.SecurityContext     `json:"securityContext"`
-	Resources       core.ResourceRequirements `json:"resources"`
-	Params          AuthzproxyParams          `json:"params"`
-}
-
-type AuthzproxyParams struct {
-	Listen           int    `json:"listen"`
-	MetricsAddr      int    `json:"metricsAddr"`
-	PlatformURL      string `json:"platformURL"`
-	PlatformCABundle string `json:"platformCABundle"`
 }
 
 type TLS struct {

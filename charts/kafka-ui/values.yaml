@@ -22,20 +22,26 @@ serviceAccount:
 
 existingConfigMap: ""
 yamlApplicationConfig:
-  {}
-  # kafka:
-  #   clusters:
-  #     - name: yaml
-  #       bootstrapServers: kafka-service:9092
-  # spring:
-  #   security:
-  #     oauth2:
-  # auth:
-  #   type: disabled
-  # management:
-  #   health:
-  #     ldap:
-  #       enabled: false
+  kafka:
+    clusters:
+      - name: yaml
+        bootstrapServers: kafka-pods.demo.svc:9092
+        properties:
+          security.protocol: SASL_PLAINTEXT
+          sasl.mechanism: PLAIN
+          sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username="admin" password="29)X_;IhcdbZR1ez";
+  spring:
+    security:
+      oauth2:
+  auth:
+    type: disabled
+  management:
+    health:
+      ldap:
+        enabled: false
+
+   
+
 yamlApplicationConfigConfigMap:
   {}
   # keyName: config.yml
@@ -121,7 +127,9 @@ tolerations: []
 
 affinity: {}
 
-env: {}
+env:
+- name: DYNAMIC_CONFIG_ENABLED
+  value: "true"
 
 initContainers: {}
 
@@ -137,7 +145,7 @@ gateway:
   port: 8082
   # nodePort: 30080
   tlsSecretRef:
-    name: service-presets-cert
+    name: service-gateway-presets-cert
     namespace: ace
   referenceGrant:
     create: true
@@ -161,13 +169,13 @@ autoscaling:
 # db could be in cross namespace
 app:
   service:
-    name: ""
-    namespace: ""
+    name: "kafkaui.kubedb.test"
+    namespace: "demo"
   authSecret:
-    name: ""
+    name: "kafka-admin-cred"
 bind:
-  name: ""
-  namespace: ""
+  name: "kafka-bind"
+  namespace: "demo"
 
 authzproxy:
   enabled: false

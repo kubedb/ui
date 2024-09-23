@@ -3,9 +3,9 @@ name: kafka-ui
 description: A Helm chart for kafka-UI
 type: application
 version: v2024.4.27
-appVersion: v0.7.2
-home: https://docs.kafka-ui.provectus.io
-icon: https://github.com/provectus/kafka-ui/raw/master/documentation/images/kafka-ui-logo.png
+appVersion: v1.0.0
+home: https://kafbat.io
+icon: https://raw.githubusercontent.com/kafbat/kafka-ui/main/documentation/images/logo_new.png
 maintainers:
 - name: appscode
   email: support@appscode.com

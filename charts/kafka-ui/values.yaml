@@ -1,8 +1,8 @@
 replicaCount: 1
 
 image:
-  registry: docker.io
-  repository: provectuslabs/kafka-ui
+  registry: ghcr.io
+  repository: kafbat/kafka-ui
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -40,10 +40,23 @@ yamlApplicationConfigConfigMap:
   {}
   # keyName: config.yml
   # name: configMapName
+yamlApplicationConfigSecret:
+  {}
+  # keyName: config.yml
+  # name: secretName
+
 existingSecret: ""
 envs:
   secret: {}
   config: {}
+  secretMappings: {}
+    #ENV_NAME:
+    #  name: kubernetes-secret-name
+    #  keyName: kubernetes-secret-key
+  configMappings: {}
+    #ENV_NAME:
+    #  name: kubernetes-configmap-name
+    #  keyName: kubernetes-configmap-key
 
 networkPolicy:
   enabled: false
@@ -128,6 +141,27 @@ initContainers: {}
 volumeMounts: {}
 
 volumes: {}
+
+hostAliases: {}
+
+## Specify additional containers in extraContainers.
+## For example, to add an authentication proxy to a kafka-ui pod.
+extraContainers: |
+# - name: proxy
+#   image: quay.io/gambol99/keycloak-proxy:latest
+#   args:
+#   - -provider=github
+#   - -client-id=
+#   - -client-secret=
+#   - -github-org=<ORG_NAME>
+#   - -email-domain=*
+#   - -cookie-secret=
+#   - -http-address=http://0.0.0.0:4181
+#   - -upstream-url=http://127.0.0.1:3000
+#   ports:
+#     - name: proxy-web
+#       containerPort: 4181
+revisionHistoryLimit: null
 
 namespace:
   create: false

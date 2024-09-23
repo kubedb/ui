@@ -1,1 +1,1 @@
-Forked from https://github.com/provectus/kafka-ui-charts
+Forked from [kafbat/helm-charts](https://github.com/kafbat/helm-charts)

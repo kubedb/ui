@@ -35,6 +35,8 @@ spec:
           image: '{{ include "image.dockerHub" (merge (dict "_repo" $.Values.image.repository) $) }}:{{ .Values.image.tag | default .Chart.AppVersion }}'
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
+            - name: PGADMIN_SERVER_MODE
+              value: "True"
             - name: PGADMIN_DEFAULT_EMAIL
               value: "notused@example.com"
             - name: PGADMIN_DEFAULT_PASSWORD

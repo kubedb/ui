@@ -19,7 +19,7 @@ proxies:
 replicaCount: 1
 
 image:
-  repository: "ugleiton/mongo-gui"
+  repository: "ghcr.io/kubedb/mongo-gui"
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"

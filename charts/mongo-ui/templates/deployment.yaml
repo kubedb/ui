@@ -51,11 +51,19 @@ spec:
           #     port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- if .Values.app.tls.enabled }}
           volumeMounts:
+          - mountPath: /app/.env
+            name: creds
+            subPath: .env
+          {{- if .Values.app.tls.enabled }}
           - name:  tls
             mountPath:  /tmp
           {{- end }}
+      volumes:
+      - secret:
+          defaultMode: 420
+          secretName: {{ include "mongo-ui.fullname" . }}
+        name: creds
       {{- if .Values.app.tls.enabled }}
       volumes:
         - name:  tls

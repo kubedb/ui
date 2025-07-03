@@ -11,6 +11,7 @@ proxies:
   dockerLibrary: ""
   # ghcr.io/company/bin:tag
   ghcr: ghcr.io
+  microsoft: mcr.microsoft.com
   # quay.io/company/bin:tag
   quay: quay.io
   # registry.k8s.io/bin:tag

@@ -35,7 +35,7 @@ spec:
     - jsonPath: .metadata.creationTimestamp
       name: Age
       type: date
-    - jsonPath: .status.conditions[?(@.type=="HTTPScaledObjectIsReady")].status
+    - jsonPath: .status.conditions[?(@.reason=="HTTPScaledObjectIsReady")].status
       name: Active
       type: string
     name: v1alpha1
@@ -72,6 +72,10 @@ spec:
                 items:
                   type: string
                 type: array
+              initialCooldownPeriod:
+                description: (optional) Initial period before scaling
+                format: int32
+                type: integer
               pathPrefixes:
                 description: |-
                   The paths to route. All requests which the Request Target matches any
@@ -96,14 +100,11 @@ spec:
                     type: integer
                 type: object
               scaleTargetRef:
-                description: The name of the deployment to route HTTP requests to
-                  (and to autoscale).
+                description: |-
+                  The name of the deployment to route HTTP requests to (and to autoscale).
+                  Including validation as a requirement to define either the PortName or the Port
                 properties:
                   apiVersion:
-                    type: string
-                  deployment:
-                    description: 'Deprecated: The name of the deployment to scale
-                      according to HTTP traffic'
                     type: string
                   kind:
                     type: string
@@ -113,13 +114,18 @@ spec:
                     description: The port to route to
                     format: int32
                     type: integer
+                  portName:
+                    description: The port to route to referenced by name
+                    type: string
                   service:
                     description: The name of the service to route to
                     type: string
                 required:
-                - port
                 - service
                 type: object
+                x-kubernetes-validations:
+                - message: must define either the 'portName' or the 'port'
+                  rule: has(self.portName) != has(self.port)
               scaledownPeriod:
                 description: (optional) Cooldown period value
                 format: int32
@@ -155,7 +161,7 @@ spec:
                     type: object
                 type: object
               targetPendingRequests:
-                description: (optional) DEPRECATED (use SscalingMetric instead) Target
+                description: (optional) DEPRECATED (use ScalingMetric instead) Target
                   metric value
                 format: int32
                 type: integer

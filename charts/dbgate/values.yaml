@@ -16,6 +16,7 @@ proxies:
   quay: quay.io
   # registry.k8s.io/bin:tag
   kubernetes: registry.k8s.io
+  weaviate: cr.weaviate.io
 
 replicaCount: 1
 

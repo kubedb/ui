@@ -2,8 +2,8 @@ apiVersion: v2
 name: kafka-ui
 description: A Helm chart for kafka-UI
 type: application
-version: v2024.4.27
-appVersion: v1.0.0
+version: v2026.3.30
+appVersion: v2026.3.30
 home: https://kafbat.io
 icon: https://raw.githubusercontent.com/kafbat/kafka-ui/main/documentation/images/logo_new.png
 maintainers:

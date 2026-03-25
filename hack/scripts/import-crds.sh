@@ -16,26 +16,15 @@
 
 set -eou pipefail
 
-KEDACORE_HTTP_ADD_ON_TAG=${KEDACORE_HTTP_ADD_ON_TAG:-v0.10.0}
-KUBERNETES_SIGS_GATEWAY_API_TAG=${KUBERNETES_SIGS_GATEWAY_API_TAG:-v1.3.0}
+KEDACORE_HTTP_ADD_ON_TAG=${KEDACORE_HTTP_ADD_ON_TAG:-v0.13.0}
 
 # dashboard charts
 crd-importer \
-    --input=https://github.com/kubernetes-sigs/gateway-api/raw/${KUBERNETES_SIGS_GATEWAY_API_TAG}/config/crd/standard/gateway.networking.k8s.io_gateways.yaml \
-    --input=https://github.com/kubernetes-sigs/gateway-api/raw/${KUBERNETES_SIGS_GATEWAY_API_TAG}/config/crd/standard/gateway.networking.k8s.io_httproutes.yaml \
-    --input=https://github.com/kubernetes-sigs/gateway-api/raw/${KUBERNETES_SIGS_GATEWAY_API_TAG}/config/crd/standard/gateway.networking.k8s.io_referencegrants.yaml \
-    --out=./charts/dbgate/crds
-crd-importer \
     --input=https://github.com/kedacore/http-add-on/raw/${KEDACORE_HTTP_ADD_ON_TAG}/config/crd/bases/http.keda.sh_httpscaledobjects.yaml \
     --labels 'app.kubernetes.io/managed-by=Helm' \
     --annotations 'meta.helm.sh/release-name=keda-add-ons-http,meta.helm.sh/release-namespace=keda' \
     --out=./charts/dbgate/crds
 
-crd-importer \
-    --input=https://github.com/kubernetes-sigs/gateway-api/raw/${KUBERNETES_SIGS_GATEWAY_API_TAG}/config/crd/standard/gateway.networking.k8s.io_gateways.yaml \
-    --input=https://github.com/kubernetes-sigs/gateway-api/raw/${KUBERNETES_SIGS_GATEWAY_API_TAG}/config/crd/standard/gateway.networking.k8s.io_httproutes.yaml \
-    --input=https://github.com/kubernetes-sigs/gateway-api/raw/${KUBERNETES_SIGS_GATEWAY_API_TAG}/config/crd/standard/gateway.networking.k8s.io_referencegrants.yaml \
-    --out=./charts/kafka-ui/crds
 crd-importer \
     --input=https://github.com/kedacore/http-add-on/raw/${KEDACORE_HTTP_ADD_ON_TAG}/config/crd/bases/http.keda.sh_httpscaledobjects.yaml \
     --labels 'app.kubernetes.io/managed-by=Helm' \
@@ -43,32 +32,17 @@ crd-importer \
     --out=./charts/kafka-ui/crds
 
 crd-importer \
-    --input=https://github.com/kubernetes-sigs/gateway-api/raw/${KUBERNETES_SIGS_GATEWAY_API_TAG}/config/crd/standard/gateway.networking.k8s.io_gateways.yaml \
-    --input=https://github.com/kubernetes-sigs/gateway-api/raw/${KUBERNETES_SIGS_GATEWAY_API_TAG}/config/crd/standard/gateway.networking.k8s.io_httproutes.yaml \
-    --input=https://github.com/kubernetes-sigs/gateway-api/raw/${KUBERNETES_SIGS_GATEWAY_API_TAG}/config/crd/standard/gateway.networking.k8s.io_referencegrants.yaml \
-    --out=./charts/mongo-ui/crds
-crd-importer \
     --input=https://github.com/kedacore/http-add-on/raw/${KEDACORE_HTTP_ADD_ON_TAG}/config/crd/bases/http.keda.sh_httpscaledobjects.yaml \
     --labels 'app.kubernetes.io/managed-by=Helm' \
     --annotations 'meta.helm.sh/release-name=keda-add-ons-http,meta.helm.sh/release-namespace=keda' \
     --out=./charts/mongo-ui/crds
 
 crd-importer \
-    --input=https://github.com/kubernetes-sigs/gateway-api/raw/${KUBERNETES_SIGS_GATEWAY_API_TAG}/config/crd/standard/gateway.networking.k8s.io_gateways.yaml \
-    --input=https://github.com/kubernetes-sigs/gateway-api/raw/${KUBERNETES_SIGS_GATEWAY_API_TAG}/config/crd/standard/gateway.networking.k8s.io_httproutes.yaml \
-    --input=https://github.com/kubernetes-sigs/gateway-api/raw/${KUBERNETES_SIGS_GATEWAY_API_TAG}/config/crd/standard/gateway.networking.k8s.io_referencegrants.yaml \
-    --out=./charts/pgadmin/crds
-crd-importer \
     --input=https://github.com/kedacore/http-add-on/raw/${KEDACORE_HTTP_ADD_ON_TAG}/config/crd/bases/http.keda.sh_httpscaledobjects.yaml \
     --labels 'app.kubernetes.io/managed-by=Helm' \
     --annotations 'meta.helm.sh/release-name=keda-add-ons-http,meta.helm.sh/release-namespace=keda' \
     --out=./charts/pgadmin/crds
 
-crd-importer \
-    --input=https://github.com/kubernetes-sigs/gateway-api/raw/${KUBERNETES_SIGS_GATEWAY_API_TAG}/config/crd/standard/gateway.networking.k8s.io_gateways.yaml \
-    --input=https://github.com/kubernetes-sigs/gateway-api/raw/${KUBERNETES_SIGS_GATEWAY_API_TAG}/config/crd/standard/gateway.networking.k8s.io_httproutes.yaml \
-    --input=https://github.com/kubernetes-sigs/gateway-api/raw/${KUBERNETES_SIGS_GATEWAY_API_TAG}/config/crd/standard/gateway.networking.k8s.io_referencegrants.yaml \
-    --out=./charts/phpmyadmin/crds
 crd-importer \
     --input=https://github.com/kedacore/http-add-on/raw/${KEDACORE_HTTP_ADD_ON_TAG}/config/crd/bases/http.keda.sh_httpscaledobjects.yaml \
     --labels 'app.kubernetes.io/managed-by=Helm' \

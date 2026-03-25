@@ -16,8 +16,14 @@
 
 set -eou pipefail
 
+KUBERNETES_SIGS_GATEWAY_API_TAG=${KUBERNETES_SIGS_GATEWAY_API_TAG:-v1.4.1}
+
 kubectl patch $(kubectl get providerconfigs.aws.kubedb.com -o name) -p '{"metadata":{"finalizers":null}}' --type=merge || true
 kubectl patch $(kubectl get providerconfigs.azure.kubedb.com -o name) -p '{"metadata":{"finalizers":null}}' --type=merge || true
 kubectl patch $(kubectl get providerconfigs.gcp.kubedb.com -o name) -p '{"metadata":{"finalizers":null}}' --type=merge || true
 
 kubectl delete crds --all
+
+kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/raw/${KUBERNETES_SIGS_GATEWAY_API_TAG}/config/crd/standard/gateway.networking.k8s.io_gateways.yaml
+kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/raw/${KUBERNETES_SIGS_GATEWAY_API_TAG}/config/crd/standard/gateway.networking.k8s.io_httproutes.yaml
+kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/raw/${KUBERNETES_SIGS_GATEWAY_API_TAG}/config/crd/standard/gateway.networking.k8s.io_referencegrants.yaml

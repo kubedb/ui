@@ -20,7 +20,7 @@ github.com/containerd/stargz-snapshotter/estargz/errorutil
 # github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
 ## explicit
 github.com/davecgh/go-spew/spew
-# github.com/docker/cli v29.0.3+incompatible
+# github.com/docker/cli v29.2.0+incompatible
 ## explicit
 github.com/docker/cli/cli/config
 github.com/docker/cli/cli/config/configfile
@@ -308,7 +308,7 @@ golang.org/x/oauth2/internal
 # golang.org/x/sync v0.19.0
 ## explicit; go 1.24.0
 golang.org/x/sync/errgroup
-# golang.org/x/sys v0.39.0
+# golang.org/x/sys v0.40.0
 ## explicit; go 1.24.0
 golang.org/x/sys/plan9
 golang.org/x/sys/unix
@@ -819,7 +819,7 @@ k8s.io/utils/lru
 k8s.io/utils/net
 k8s.io/utils/ptr
 k8s.io/utils/trace
-# kmodules.xyz/client-go v0.34.2
+# kmodules.xyz/client-go v0.34.3
 ## explicit; go 1.24.0
 kmodules.xyz/client-go
 kmodules.xyz/client-go/api/v1
@@ -829,8 +829,8 @@ kmodules.xyz/client-go/meta
 # kmodules.xyz/go-containerregistry v0.0.15
 ## explicit; go 1.24.0
 kmodules.xyz/go-containerregistry/name
-# kmodules.xyz/resource-metadata v0.40.2
-## explicit; go 1.24.0
+# kmodules.xyz/resource-metadata v0.42.10
+## explicit; go 1.25
 kmodules.xyz/resource-metadata/apis/shared
 # kmodules.xyz/schema-checker v0.4.2
 ## explicit; go 1.22.0

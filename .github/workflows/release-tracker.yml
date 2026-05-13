@@ -15,8 +15,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Generate GitHub App token
-        id: app-token
+      - name: Generate LGTM App token
+        id: lgtm-app-token
         if: |
           github.event.action == 'closed' &&
           github.event.pull_request.merged == true

@@ -25,7 +25,7 @@ image:
   repository: "appscode-images/phpmyadmin"
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "5.2.3"
 
 imagePullSecrets: []
 nameOverride: ""

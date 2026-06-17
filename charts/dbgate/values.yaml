@@ -25,7 +25,7 @@ image:
   repository: "dbgate/dbgate"
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "5.3.1-alpine"
+  tag: "7.2.0-alpine"
 
 imagePullSecrets: []
 nameOverride: ""

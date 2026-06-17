@@ -51,6 +51,8 @@ spec:
               value: "False"
             - name: PGADMIN_CONFIG_WTF_CSRF_ENABLED
               value: "False"
+            - name: PGADMIN_CONFIG_UPGRADE_CHECK_ENABLED
+              value: "False"
             # avoid need for sudo
             # https://github.com/pgadmin-org/pgadmin4/blob/REL-8_9/pkg/docker/entrypoint.sh#L94
             # postfix is used to send password reset emails. This feature is not used.

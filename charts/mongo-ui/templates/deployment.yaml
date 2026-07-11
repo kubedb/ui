@@ -65,10 +65,9 @@ spec:
           secretName: {{ include "mongo-ui.fullname" . }}
         name: creds
       {{- if .Values.app.tls.enabled }}
-      volumes:
-        - name:  tls
-          secret:
-            secretName: {{ .Values.app.tls.secretName }}
+      - name:  tls
+        secret:
+          secretName: {{ .Values.app.tls.secretName }}
       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:

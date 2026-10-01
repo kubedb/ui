@@ -29,11 +29,7 @@ jobs:
 
       - name: Prepare Host
         run: |
-          # install yq
-          curl -fsSL -o yqq https://github.com/mikefarah/yq/releases/download/3.3.0/yq_linux_amd64
-          chmod +x yqq
-          sudo mv yqq /usr/local/bin/yqq
-          pipx install yq
+          pipx install yq==4.1.2
           # install kubectl
           curl -LO https://dl.k8s.io/release/v1.32.1/bin/linux/amd64/kubectl
           chmod +x ./kubectl
@@ -53,12 +49,6 @@ jobs:
         k8s: [v1.29.14, v1.31.14, v1.33.7, v1.35.0]
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
-
-      - name: Install yq
-        run: |
-          curl -fsSL -o yqq https://github.com/mikefarah/yq/releases/download/3.3.0/yq_linux_amd64
-          chmod +x yqq
-          sudo mv yqq /usr/local/bin/yqq
 
       - name: Create Kubernetes ${{ matrix.k8s }} cluster
         id: kind

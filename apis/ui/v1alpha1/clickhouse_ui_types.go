@@ -73,7 +73,7 @@ type ClickhouseUiPersistence struct {
 	Enabled bool   `json:"enabled"`
 	Size    string `json:"size"`
 	//+optional
-	StorageClassName *string `json:"storageClassName"`
+	StorageClassName *string `json:"storageClassName,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

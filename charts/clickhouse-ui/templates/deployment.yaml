@@ -35,6 +35,10 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: '{{ include "image.ghcr" (merge (dict "_repo" $.Values.image.repository) $) }}:{{ .Values.image.tag | default .Chart.AppVersion }}'
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - server
+            - --pid-file
+            - /tmp/ch-ui-server.pid
           env:
             - name: PORT
               value: "3488"

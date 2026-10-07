@@ -28,6 +28,7 @@ import (
 func TestDefaultValues(t *testing.T) {
 	checker := schemachecker.New(
 		os.DirFS("../../.."),
+		schemachecker.TestCase{Obj: v1alpha1.ClickhouseUiSpec{}},
 		schemachecker.TestCase{Obj: v1alpha1.DbgateSpec{}},
 		schemachecker.TestCase{Obj: v1alpha1.MongoUiSpec{}},
 		schemachecker.TestCase{Obj: v1alpha1.PgadminSpec{}},

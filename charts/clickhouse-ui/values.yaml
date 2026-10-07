@@ -1,0 +1,128 @@
+# Default values for clickhouse-ui.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+proxies:
+  # r.appscode.com
+  appscode: r.appscode.com
+  # company/bin:tag
+  dockerHub: ""
+  # alpine, nginx etc.
+  dockerLibrary: ""
+  # ghcr.io/company/bin:tag
+  ghcr: ghcr.io
+  microsoft: mcr.microsoft.com
+  oracle: container-registry.oracle.com
+  # quay.io/company/bin:tag
+  quay: quay.io
+  # registry.k8s.io/bin:tag
+  kubernetes: registry.k8s.io
+  weaviate: cr.weaviate.io
+
+# CH-UI keeps state in a local SQLite database; it is a single-instance application.
+replicaCount: 1
+
+image:
+  repository: "caioricciuti/ch-ui"
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "v2.14.1"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: # +doc-gen:break
+  fsGroup: 65534
+
+securityContext: # +doc-gen:break
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop: ["ALL"]
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 65534
+  seccompProfile:
+    type: RuntimeDefault
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# Persists the CH-UI SQLite database (saved queries, settings) across restarts and scale-to-zero.
+persistence:
+  enabled: true
+  size: 1Gi
+  # storageClassName: ""
+
+namespace:
+  create: false
+
+gateway:
+  className: "ace"
+  port: 8082
+  # nodePort: 30080
+  tlsSecretRef:
+    name: service-presets-cert
+    namespace: ace
+  referenceGrant:
+    create: true
+
+# This is the namespace that the ingress should be installed
+# into. It should be set to the same namespace as the
+# KEDA HTTP componentry is installed in. Defaults to the Helm
+# chart release namespace
+keda:
+  proxyService:
+    namespace: "keda"
+    name: "keda-add-ons-http-interceptor-proxy"
+    port: 8080
+targetPendingRequests: 200
+autoscaling:
+  http:
+    minReplicas: 0
+    maxReplicas: 1
+
+# authSecret, Bind CR, HelmRelease CR in same namespace
+# db could be in cross namespace
+app:
+  service:
+    name: ""
+    namespace: ""
+  authSecret:
+    name: ""
+  # KubeDB ClickHouse keeps its HTTP interface (8123) plaintext even with TLS; TLS only covers the native port.
+  tls:
+    enabled: false
+bind:
+  name: ""
+  namespace: ""

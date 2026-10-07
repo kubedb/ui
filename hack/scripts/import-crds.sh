@@ -23,6 +23,12 @@ crd-importer \
     --input=https://github.com/kedacore/http-add-on/raw/${KEDACORE_HTTP_ADD_ON_TAG}/config/crd/bases/http.keda.sh_httpscaledobjects.yaml \
     --labels 'app.kubernetes.io/managed-by=Helm' \
     --annotations 'meta.helm.sh/release-name=keda-add-ons-http,meta.helm.sh/release-namespace=keda' \
+    --out=./charts/clickhouse-ui/crds
+
+crd-importer \
+    --input=https://github.com/kedacore/http-add-on/raw/${KEDACORE_HTTP_ADD_ON_TAG}/config/crd/bases/http.keda.sh_httpscaledobjects.yaml \
+    --labels 'app.kubernetes.io/managed-by=Helm' \
+    --annotations 'meta.helm.sh/release-name=keda-add-ons-http,meta.helm.sh/release-namespace=keda' \
     --out=./charts/dbgate/crds
 
 crd-importer \
